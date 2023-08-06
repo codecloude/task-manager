@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import StyledComponentsRegistry from "../lib/registry";
 import { Inter } from "next/font/google";
 import Header from "./components/header/page";
-import GlobalStyle from "./globals";
+import { DivWrapChildrenSC, DivWrapperSC, GlobalStyle } from "./globals";
+import ThemeProviderComp from "./themeProvider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,13 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <StyledComponentsRegistry>
+                <ThemeProviderComp>
                     <GlobalStyle />
-                    <>
+                    <DivWrapperSC>
                         <Header />
-                        {children}
-                    </>
-                </StyledComponentsRegistry>
+                        <DivWrapChildrenSC>{children}</DivWrapChildrenSC>
+                    </DivWrapperSC>
+                </ThemeProviderComp>
             </body>
         </html>
     );
