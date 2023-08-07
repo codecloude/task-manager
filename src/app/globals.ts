@@ -2,14 +2,14 @@
 
 import styled, { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{mode?: string | null}>`
     :root {
-        --dark-mode: black;
-        --light-mode: white;
+        --theme-mode: ${({mode}) => (mode === "light" ? "#f9f9f9" : "black")};
         --text-color: #191919;
         --main-white: #f9f9f9;
         --light-blue: #7FC8F8;
         --primary-blue: #5AA9E6;
+        --border-line: #e6e6e6;
     }
 
     * {
@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         height: 100%;
         min-height: 100vh;
-        background-color: var(--main-white);
+        background-color: var(--theme-mode);
     }
 `;
 
@@ -32,7 +32,7 @@ export const DivWrapperSC = styled.div`
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-rows: 60px auto;
+    grid-template-rows: max-content auto;
 `;
 
 export const DivWrapChildrenSC = styled.div`
