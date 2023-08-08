@@ -1,8 +1,8 @@
 import { Switch, styled } from "@mui/material";
 
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-    width: 80,
-    height: 38,
+    width: 60,
+    height: 30,
     padding: 0,
     "& .MuiSwitch-switchBase": {
         margin: 3,
@@ -10,26 +10,29 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         transform: "translateX(0px)",
         "&.Mui-checked": {
             color: "#fff",
-            transform: "translateX(42px)",
+            transform: "translateX(30px)",
             "& .MuiSwitch-thumb:before": {
                 backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
                     "#fff"
                 )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
             },
             "& + .MuiSwitch-track": {
-                width: 80,
-                height: 38,
+                width: 60,
+                height: 30,
                 opacity: 1,
                 backgroundColor:
-                    theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
+                    theme.palette.mode === "dark"
+                        ? "var(--border-line)"
+                        : "var(--border-line)",
             },
         },
     },
     "& .MuiSwitch-thumb": {
-        backgroundColor: theme.palette.mode === "dark" ? "#003892" : "var(--primary-blue)",
-        width: 32,
-        height: 32,
-        boxShadow: '0px 0px 0px 0px #fff',
+        backgroundColor:
+            theme.palette.mode === "dark" ? "#003892" : "var(--primary-blue)",
+        width: 24,
+        height: 24,
+        boxShadow: "0px 0px 0px 0px #fff",
         "&:before": {
             content: "''",
             position: "absolute",
@@ -46,9 +49,12 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
     "& .MuiSwitch-track": {
         width: "100%",
-        height: 38,
+        height: 30,
         opacity: 1,
-        backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "var(--border-line)",
+        backgroundColor:
+            theme.palette.mode === "dark"
+                ? "var(--border-line)"
+                : "var(--border-line)",
         borderRadius: 20 / 1.15,
     },
 }));

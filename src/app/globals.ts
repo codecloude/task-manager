@@ -1,21 +1,26 @@
 "use client";
 
+import { PaletteMode } from "@mui/material";
 import styled, { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle<{mode?: string | null}>`
+export const GlobalStyle = createGlobalStyle<{ mode?: PaletteMode }>`
     :root {
-        --theme-mode: ${({mode}) => (mode === "light" ? "#f9f9f9" : "black")};
-        --text-color: #191919;
+        --theme-mode: ${({ mode }) =>
+            mode === "light" ? "#f9f9f9" : "#1D2125"};
+        --text-color: ${({ mode }) =>
+            mode === "light" ? "#191919" : "#A1ADBB"};
         --main-white: #f9f9f9;
         --light-blue: #7FC8F8;
         --primary-blue: #5AA9E6;
-        --border-line: #e6e6e6;
+        --border-line: ${({ mode }) =>
+            mode === "light" ? "#e6e6e6" : "#424242"};
     }
 
     * {
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+        
     }
 
     body {
@@ -25,6 +30,7 @@ export const GlobalStyle = createGlobalStyle<{mode?: string | null}>`
         height: 100%;
         min-height: 100vh;
         background-color: var(--theme-mode);
+        transition: background-color .8s;
     }
 `;
 
@@ -33,6 +39,7 @@ export const DivWrapperSC = styled.div`
     width: 100%;
     height: 100%;
     grid-template-rows: max-content auto;
+    color: var(--text-color);
 `;
 
 export const DivWrapChildrenSC = styled.div`
@@ -41,6 +48,4 @@ export const DivWrapChildrenSC = styled.div`
     padding: 10px 0px;
 `;
 
-export const DivInBtnWithIconSC = styled.div`
-    
-`;
+export const DivInBtnWithIconSC = styled.div``;

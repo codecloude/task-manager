@@ -4,3 +4,13 @@ export type DashboardItemType = {
     };
 };
 
+export type CustomMenuPropsType = {
+    label: string | "label";
+    items: CustomMenuItemsType[]
+}
+
+export type CustomMenuItemsType = {
+    label: string;
+    url: string;
+}
+

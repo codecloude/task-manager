@@ -3,7 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export const DivHeaderWrapSC = styled.div`
-    background-color: var(--main-white);
+    background-color: var(--theme-mode);
     width: 100%;
     height: 100%;
     min-height: 70px;
@@ -12,6 +12,7 @@ export const DivHeaderWrapSC = styled.div`
     box-sizing: border-box;
     display: grid;
     align-items: center;
+    transition: background-color .8s;
 `;
 
 export const LogoBoxSC = styled(Link)`
@@ -26,13 +27,14 @@ export const LogoBoxSC = styled(Link)`
         padding: 2px;
         background-color: var(--primary-blue);
         border-radius: 5px;
-        color: var(--main-white);
         transition: 0.3s;
+        color: #f9f9f9;
     }
 
     &:hover {
         span {
             background-color: var(--light-blue);
+            color: #191919;
         }
     }
 `;

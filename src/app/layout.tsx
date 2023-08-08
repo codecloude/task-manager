@@ -1,9 +1,10 @@
+import React from "react";
+import ReduxProvider from "@/redux/provider";
 import type { Metadata } from "next";
+import ThemeProviderComp from "./themeProvider";
 import { Inter } from "next/font/google";
 import Header from "../components/header";
 import { DivWrapChildrenSC, DivWrapperSC, GlobalStyle } from "./globals";
-import ThemeProviderComp from "./themeProvider";
-import ReduxProvider from "@/redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <ReduxProvider>
                     <ThemeProviderComp>
-                        <GlobalStyle />
+                        {/* <GlobalStyle /> */}
                         <DivWrapperSC>
                             <Header />
                             <DivWrapChildrenSC>{children}</DivWrapChildrenSC>
