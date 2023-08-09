@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeModeReducer from "./features/theme-mode-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
+import themeModeReducer from "./features/theme-mode-slice";
+import WorkspacesReducer from "./features/workspaces-slice";
 
 export const store = configureStore({
     reducer: {
         themeModeReducer,
+        WorkspacesReducer
     },
 });
 

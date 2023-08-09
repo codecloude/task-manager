@@ -1,9 +1,8 @@
 "use client";
-
 import { PaletteMode } from "@mui/material";
 import styled, { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle<{ mode?: PaletteMode }>`
+export const GlobalStyle = createGlobalStyle<{ mode?: string }>`
     :root {
         --theme-mode: ${({ mode }) =>
             mode === "light" ? "#f9f9f9" : "#1D2125"};
@@ -38,14 +37,14 @@ export const DivWrapperSC = styled.div`
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-rows: max-content auto;
+    padding-top: 70px;
     color: var(--text-color);
+    position: relative;
+    box-sizing: border-box;
 `;
 
 export const DivWrapChildrenSC = styled.div`
     width: 100%;
     height: 100%;
-    padding: 10px 0px;
+    min-height: 100vh;
 `;
-
-export const DivInBtnWithIconSC = styled.div``;

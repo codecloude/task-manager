@@ -5,14 +5,17 @@ import styled from "styled-components";
 export const DivHeaderWrapSC = styled.div`
     background-color: var(--theme-mode);
     width: 100%;
-    height: 100%;
-    min-height: 70px;
+    height: 70px;
     border-bottom: 1px solid var(--border-line);
     padding: 10px 10px;
     box-sizing: border-box;
     display: grid;
     align-items: center;
     transition: background-color .8s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
 `;
 
 export const LogoBoxSC = styled(Link)`

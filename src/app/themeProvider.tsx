@@ -15,10 +15,10 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
 
     const theme = createTheme({
         palette: {
-            mode: mode,
+            mode: mode ? mode : "light",
             primary: {
                 main: "#5AA9E6",
-                // contrastText: "#191919",
+                contrastText: "#ffffff",
             },
             secondary: {
                 main: "#191919",
@@ -74,7 +74,7 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <GlobalStyle mode={mode} />
+                <GlobalStyle mode={mode ? mode : "light"} />
                 {children}
             </ThemeProvider>
         </>

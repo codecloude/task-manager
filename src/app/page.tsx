@@ -1,12 +1,22 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import { DivHomeNavSC, DivHomeWorkspacesSC, DivHomeWrapSC } from "./style.home";
+import NavMenu from "@/components/nav-menu";
+import { NavMenuSectionType } from "@/lib/types";
 
-import { useAppSelector } from "@/redux/store";
-import React, { useEffect } from "react";
+const Home = () => {
+    const [section, setSection] = useState<NavMenuSectionType>("dashboards");
 
-export default function Home() {
-    const themeMode = useAppSelector((state) => state.themeModeReducer);
+    return (
+        <main>
+            <DivHomeWrapSC>
+                <DivHomeNavSC>
+                    <NavMenu section={section} setSection={setSection}/>
+                </DivHomeNavSC>
+                <DivHomeWorkspacesSC>kek</DivHomeWorkspacesSC>
+            </DivHomeWrapSC>
+        </main>
+    );
+};
 
-    // console.log("home", themeMode);
-
-    return <main>ghb</main>;
-}
+export default Home;

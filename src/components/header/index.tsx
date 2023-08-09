@@ -50,6 +50,7 @@ const Header = () => {
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
+                    // position={"fixed"}
                 >
                     <DivGridHeaderSC>
                         <LogoBoxSC href={"/"}>
@@ -70,7 +71,6 @@ const Header = () => {
                                     onChange={handleMode}
                                 />
                             }
-                            // onClick={handleMode}
                             label=""
                         />
                         <DivVerticalLineSC />
