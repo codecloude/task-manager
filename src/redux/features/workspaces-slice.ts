@@ -8,14 +8,11 @@ export const workspaces = createSlice({
     name: "workspaces",
     initialState,
     reducers: {
-        addWorkspase: (state, action: PayloadAction<WorkspaceType>) => {
-            return [
-                ...state,
-                action.payload
-            ];
+        addWorkspaces: (state, action: PayloadAction<WorkspaceType[]>) => {
+            return action.payload;
         },
     },
 });
 
-export const { addWorkspase } = workspaces.actions;
+export const { addWorkspaces } = workspaces.actions;
 export default workspaces.reducer;

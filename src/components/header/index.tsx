@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     DivGridHeaderSC,
     DivHeaderWrapSC,
@@ -14,24 +14,17 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import CustomMenu from "../menu";
 import { CustomMenuPropsType } from "@/lib/types";
-
-const dataMenu: CustomMenuPropsType = {
-    label: "Рабочие пространства",
-    items: [
-        {
-            label: "Earthy",
-            url: "/",
-        },
-        {
-            label: "Catena",
-            url: "/",
-        },
-    ],
-};
+import { addWorkspaces } from "@/redux/features/workspaces-slice";
 
 const Header = () => {
     const theme = useAppSelector((state) => state.themeModeReducer);
+    const workspaces = useAppSelector((state) => state.workspacesReducer);
     const dispatch = useDispatch<AppDispatch>();
+
+    const dataMenu: CustomMenuPropsType = {
+        label: "Рабочие пространства",
+        items: workspaces,
+    };
 
     const handleMode = () => {
         const currentMode = localStorage.getItem("mode");
@@ -41,6 +34,20 @@ const Header = () => {
 
         localStorage.setItem("mode", newMode);
     };
+
+    useEffect(() => {
+        const workspacesString = localStorage.getItem("workspaces");
+        if (workspacesString) {
+            const workspacesToJson = JSON.parse(workspacesString);
+            dispatch(addWorkspaces(workspacesToJson));
+        }
+
+        // if (workspaces) {
+        //     const workspacesString = JSON.stringify(workspaces);
+        //     localStorage.setItem("workspaces", workspacesString);
+        // } else {
+        // }
+    }, []);
 
     return (
         <>
@@ -59,7 +66,7 @@ const Header = () => {
                         <DivVerticalLineSC />
                         <CustomMenu
                             label={dataMenu.label}
-                            items={dataMenu.items}
+                            items={dataMenu.items ? dataMenu.items : []}
                         />
                     </DivGridHeaderSC>
                     <DivGridHeaderSC>

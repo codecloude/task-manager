@@ -13,7 +13,7 @@ const Home = () => {
                 <DivHomeNavSC>
                     <NavMenu section={section} setSection={setSection}/>
                 </DivHomeNavSC>
-                <DivHomeWorkspacesSC>kek</DivHomeWorkspacesSC>
+                <DivHomeWorkspacesSC></DivHomeWorkspacesSC>
             </DivHomeWrapSC>
         </main>
     );

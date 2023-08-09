@@ -1,21 +1,24 @@
 import { Button, Menu, MenuItem } from "@mui/material";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import React, { useState } from "react";
-import { CustomMenuPropsType } from "@/lib/types";
+import { CustomMenuPropsType, WorkspaceType } from "@/lib/types";
 import { MaterialUIMenu } from "./style.menu";
+import { useRouter } from "next/navigation";
 
 const CustomMenu = (props: CustomMenuPropsType) => {
     const { label, items } = props;
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const router = useRouter();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = (url: string) => {
         setAnchorEl(null);
+        router.push(`${url}`);
     };
 
     return (
@@ -27,23 +30,30 @@ const CustomMenu = (props: CustomMenuPropsType) => {
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
                 color="info"
-                // variant="text"
                 endIcon={<KeyboardArrowDownOutlinedIcon />}
+                disabled={items.length === 0}
             >
                 {label}
             </Button>
-            <MaterialUIMenu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                }}
-            >
-                <MenuItem onClick={handleClose}>Earthy</MenuItem>
-                <MenuItem onClick={handleClose}>Catena</MenuItem>
-            </MaterialUIMenu>
+            {items.length !== 0 && (
+                <MaterialUIMenu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        "aria-labelledby": "basic-button",
+                    }}
+                >
+                    {items.map(({ label, url, id }: WorkspaceType) => (
+                        <MenuItem key={id} onClick={() => handleClose(url)}>
+                            {label}
+                        </MenuItem>
+                    ))}
+
+                    {/* <MenuItem onClick={handleClose}>Catena</MenuItem> */}
+                </MaterialUIMenu>
+            )}
         </>
     );
 };

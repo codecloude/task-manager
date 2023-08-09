@@ -13,22 +13,14 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import SpaceDashboardRoundedIcon from "@mui/icons-material/SpaceDashboardRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { CreateWorkspace, WorkspaceItem } from "./workspace-item";
+import { useAppSelector } from "@/redux/store";
 
 const NavMenu = (props: NavMenuPropsType) => {
-    const { section, setSection } = props;
-    const [workspaces, setWorkspaces] = useState<WorkspaceType[]>();
+    const workspaces = useAppSelector((state) => state.workspacesReducer);
     const rootRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    // const [activeSection, setActiveSection] = useState<NavMenuSectionType>("dashboards");
-
-    useEffect(() => {
-        const items = localStorage.getItem("workspaces");
-        if (items) {
-            setWorkspaces(JSON.parse(items));
-        }
-    }, []);
 
     const style = {
         position: "absolute" as "absolute",
@@ -41,6 +33,7 @@ const NavMenu = (props: NavMenuPropsType) => {
         // border: "2px solid #000",
         boxShadow: 24,
         p: 4,
+        borderRadius: "10px"
     };
 
     return (
@@ -93,7 +86,7 @@ const NavMenu = (props: NavMenuPropsType) => {
                     </Modal>
                     <DivWorkspacesGroupSC>
                         {/* <WorkspaceItem label="Earthy" url="/workspace/dashboard/Earthy"/> */}
-                        {workspaces ? (
+                        {workspaces.length !== 0 ? (
                             workspaces.map((item: WorkspaceType) => (
                                 <WorkspaceItem
                                     key={item.id}

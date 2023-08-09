@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { DivWorkspaceIconSC, LinkWorkspaceItemSC } from "./style.wrk-item";
 import { CreateWorkspacePropsType, WorkspaceType } from "@/lib/types";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { AppDispatch } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { addWorkspaces } from "@/redux/features/workspaces-slice";
 
 export const WorkspaceItem = (props: WorkspaceType) => {
     const { label, url } = props;
@@ -22,6 +25,8 @@ export const WorkspaceItem = (props: WorkspaceType) => {
 export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
     const { setOpen } = props;
     const [label, setLabel] = useState<string>("");
+    
+    const dispatch = useDispatch<AppDispatch>();
 
     const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLabel(e.target.value);
@@ -50,6 +55,8 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
 
         localStorage.setItem("workspaces", JSON.stringify(workspaces));
 
+        dispatch(addWorkspaces(workspaces));
+
         setOpen(false);
     };
 
@@ -66,6 +73,7 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
         display: "grid",
         gridAutoRows: "max-content",
         rowGap: "20px",
+        borderRadius: "10px",
     };
 
     return (

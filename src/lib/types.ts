@@ -26,7 +26,7 @@ export type WorkspaceType = {
     label: string;
     url: string | "/workspace/dashboard/";
     tasks?: TaskType[];
-} | null;
+};
 
 export type TaskType = {
     id: string;
