@@ -5,6 +5,7 @@ import styled from "styled-components";
 export const DivDashboardIdWrapSC = styled.div`
     width: 100%;
     height: 100%;
+    display: grid;
     grid-template-rows: 50px auto;
     /* border: 1px solid black; */
 `
@@ -19,8 +20,10 @@ export const DivDBTopMenuSC = styled.div`
 `
 
 export const DivKanbanWrapSC = styled.div`
-    margin-top: 20px;
-    padding: 0 20px;
+    /* margin-top: 20px; */
+    padding: 15px;
     width: 100%;
     height: 100%;
+    /* border: 2px solid blue; */
+    box-sizing: border-box;
 `;

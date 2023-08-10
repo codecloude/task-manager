@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle<{ mode?: string }>`
 export const DivWrapperSC = styled.div`
     display: grid;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 70px);
     padding-top: 70px;
     color: var(--text-color);
     position: relative;
@@ -46,5 +46,5 @@ export const DivWrapperSC = styled.div`
 export const DivWrapChildrenSC = styled.div`
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    height: calc(100vh - 70px);
 `;

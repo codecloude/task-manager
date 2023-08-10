@@ -11,6 +11,8 @@ export interface Column {
 }
 
 export interface KanbanBoard {
+    id: string;
+    label: string;
     columns: Column[];
 }
 
