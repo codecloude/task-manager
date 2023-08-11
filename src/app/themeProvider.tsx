@@ -28,6 +28,9 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
                 main: mode === "light" ? "#191919" : "#A1ADBB",
             },
         },
+        typography: {
+            fontFamily: '"Roboto", "Arial", sans-serif', // Установите ваш стандартный шрифт здесь
+        },
         components: {
             MuiButton: {
                 styleOverrides: {
@@ -53,9 +56,8 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
             MuiMenu: {
                 styleOverrides: {
                     root: {
-                        fontSize: 30
+                        fontSize: 30,
                     },
-
                 },
             },
         },

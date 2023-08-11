@@ -2,18 +2,19 @@
 
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const BoardContainerSC = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
     width: 100%;
     height: 100%;
-    margin-top: 10px;
     overflow-x: auto;
     overflow-y: auto;
     white-space: nowrap;
     box-sizing: border-box;
+    padding: 15px;
+    /* z-index: 2; */
 `;
 
 type DropshadowProps = {

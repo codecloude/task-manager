@@ -1,6 +1,6 @@
 "use client";
 import { PaletteMode } from "@mui/material";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle<{ mode?: string }>`
     :root {
@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle<{ mode?: string }>`
         --primary-blue: #5AA9E6;
         --border-line: ${({ mode }) =>
             mode === "light" ? "#e6e6e6" : "#424242"};
+                  
     }
 
     * {

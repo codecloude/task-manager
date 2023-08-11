@@ -12,17 +12,27 @@ import { ColumnType } from "@/lib/types";
 import { useDragDrop } from "../DragDropProvider";
 import { Row } from "../row";
 import {
-    Container,
+    ColumnContainerSC,
     DropshadowContainer,
-    RowContainer,
+    DivRowContainerSC,
     RowDropshadow,
-    Title,
-    TitleContainer,
+    DivLabelColumnSC,
+    DivLabelContainerSC,
 } from "./style.column";
+import { Button } from "@mui/material";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 type Props = {
     column: ColumnType;
     columnIndex: number;
+};
+
+const styleButton = {
+    justifyContent: "start",
+    ":hover": { borderRadius: "8px" },
+    fontWeight: 400,
+    textTransform: "none",
+    fontSize: "16px"
 };
 
 const Column: React.FC<Props> = ({ column, columnIndex }) => {
@@ -31,18 +41,21 @@ const Column: React.FC<Props> = ({ column, columnIndex }) => {
     return (
         <Draggable draggableId={column.id} index={columnIndex}>
             {(provided: DraggableProvided) => (
-                <Container {...provided.draggableProps} ref={provided.innerRef}>
-                    <TitleContainer>
-                        <Title {...provided.dragHandleProps}>
+                <ColumnContainerSC
+                    {...provided.draggableProps}
+                    ref={provided.innerRef}
+                >
+                    <DivLabelContainerSC>
+                        <DivLabelColumnSC {...provided.dragHandleProps}>
                             {column.label}
-                        </Title>
-                    </TitleContainer>
+                        </DivLabelColumnSC>
+                    </DivLabelContainerSC>
                     <Droppable droppableId={column.id} type="task">
                         {(
                             prov: DroppableProvided,
                             snapshot: DroppableStateSnapshot
                         ) => (
-                            <RowContainer
+                            <DivRowContainerSC
                                 ref={prov.innerRef}
                                 {...prov.droppableProps}
                             >
@@ -64,10 +77,18 @@ const Column: React.FC<Props> = ({ column, columnIndex }) => {
                                         />
                                     )}
                                 </DropshadowContainer>
-                            </RowContainer>
+                            </DivRowContainerSC>
                         )}
                     </Droppable>
-                </Container>
+                    <Button
+                        variant="text"
+                        color="inherit"
+                        sx={styleButton}
+                        startIcon={<AddRoundedIcon />}
+                    >
+                        Добавить карточку
+                    </Button>
+                </ColumnContainerSC>
             )}
         </Draggable>
     );

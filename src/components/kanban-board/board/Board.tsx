@@ -4,7 +4,7 @@ import React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Column from "../column/Column";
 import { useDragDrop } from "../DragDropProvider";
-import { ColumnDropshadow, Container } from "./style.board";
+import { ColumnDropshadow, BoardContainerSC } from "./style.board";
 
 const Board: React.FC = () => {
     const {
@@ -27,7 +27,7 @@ const Board: React.FC = () => {
                 type="column"
             >
                 {(provided, snapshot) => (
-                    <Container
+                    <BoardContainerSC
                         id="task-board"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
@@ -40,13 +40,13 @@ const Board: React.FC = () => {
                             />
                         ))}
                         {provided.placeholder}
-                        {snapshot.isDraggingOver && (
+                        {/* {snapshot.isDraggingOver && (
                             <ColumnDropshadow
                                 marginLeft={colDropshadowProps.marginLeft}
                                 height={colDropshadowProps.height}
                             />
-                        )}
-                    </Container>
+                        )} */}
+                    </BoardContainerSC>
                 )}
             </Droppable>
         </DragDropContext>
