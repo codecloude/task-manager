@@ -41,7 +41,7 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
         const newWorkspace: WorkspaceType = {
             id,
             label,
-            url: `/workspace/dashboard/${id}`,
+            url: `/workspaces/dashboard/${id}`,
         };
 
         const workspacesStr = localStorage.getItem("workspaces");

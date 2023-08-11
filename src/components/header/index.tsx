@@ -66,7 +66,7 @@ const Header = () => {
                         <DivVerticalLineSC />
                         <CustomMenu
                             label={dataMenu.label}
-                            items={dataMenu.items ? dataMenu.items : []}
+                            items={dataMenu.items && dataMenu.items}
                         />
                     </DivGridHeaderSC>
                     <DivGridHeaderSC>

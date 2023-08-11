@@ -26,7 +26,7 @@ export type NavMenuPropsType = {
 export type WorkspaceType = {
     id?: number;
     label: string;
-    url: string | "/workspace/dashboard/";
+    url: string | "/workspaces/dashboard/";
     tasks?: TaskType[];
 };
 

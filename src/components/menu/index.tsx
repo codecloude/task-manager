@@ -16,7 +16,12 @@ const CustomMenu = (props: CustomMenuPropsType) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = (url: string) => {
+    const handleClose = () => {
+        setAnchorEl(null);
+        // router.push(`${url}`);
+    };
+
+    const handleToWorkspace = (url: string) => {
         setAnchorEl(null);
         router.push(`${url}`);
     };
@@ -46,7 +51,10 @@ const CustomMenu = (props: CustomMenuPropsType) => {
                     }}
                 >
                     {items.map(({ label, url, id }: WorkspaceType) => (
-                        <MenuItem key={id} onClick={() => handleClose(url)}>
+                        <MenuItem
+                            key={id}
+                            onClick={() => handleToWorkspace(url)}
+                        >
                             {label}
                         </MenuItem>
                     ))}
