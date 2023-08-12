@@ -1,39 +1,49 @@
 "use client";
 
-import styled from "styled-components";
+import { PlaceBoardType } from "@/lib/types";
+import styled, { css } from "styled-components";
 
-export const BoardContainerSC = styled.div`
+export const DivBoardContainerSC = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
     width: 100%;
+    width: max-content;
     height: 100%;
     overflow-x: auto;
     overflow-y: auto;
     white-space: nowrap;
     box-sizing: border-box;
-    padding: 15px;
-    /* z-index: 2; */
 `;
 
 type DropshadowProps = {
     height: number;
+    place: PlaceBoardType;
 };
 
 export const Dropshadow = styled.div<DropshadowProps>`
-    border-radius: 3px;
-    background-color: #ddd;
-    width: 302px;
+    ${({ place }) =>
+        place === "column"
+            ? css`
+                  background-color: var(--back-column);
+                  border-radius: var(--border-radius-column);
+              `
+            : css`
+                  background-color: var(--back-card);
+                  border-radius: var(--border-radius-card);
+              `}
+    width: ${({ place }) => (place === "column" ? "300px" : "276px")};
     height: ${({ height }) => height}px;
     z-index: 1;
+    opacity: 0.7;
 `;
 
 type ColumnDropshadowProps = {
     marginLeft: number;
 };
 
-export const ColumnDropshadow = styled(Dropshadow)<ColumnDropshadowProps>`
+export const DivColumnDropshadowSC = styled(Dropshadow)<ColumnDropshadowProps>`
     margin-left: ${({ marginLeft }) => marginLeft - 1}px;
     position: absolute;
 `;

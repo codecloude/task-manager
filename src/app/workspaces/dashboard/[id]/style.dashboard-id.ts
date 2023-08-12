@@ -65,24 +65,51 @@ export const DivDBTopMenuSC = styled.div`
     padding: 0 10px;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.2);
+    position: sticky;
 `;
 
 export const DivKanbanWrapSC = styled.div`
     width: 100%;
     height: 100%;
     z-index: 2;
+    overflow-y: auto;
+    display: flex;
+    padding: 15px;
 `;
 
 export const DivGridDBTopMenuSC = styled.div`
     width: 100%;
+    max-width: 100vw;
     height: 100%;
     display: flex;
     column-gap: 20px;
     align-items: center;
-`
+`;
 
 export const H1LabelBoardSC = styled.div`
     font-size: 20px;
     font-weight: 600;
     color: #fff;
-`
+    user-select: none;
+`;
+
+export const DivColumnAddSC = styled.div`
+    display: inline-block;
+    width: 300px;
+    height: 50px;
+    background-color: var(--back-column);
+    border-radius: var(--border-radius-column);
+    align-items: center;
+    padding: 10px;
+    display: flex;
+    column-gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition);
+    &:hover {
+        background-color: var(--back-card);
+    }
+    &:active {
+        opacity: 0.8;
+    }
+`;

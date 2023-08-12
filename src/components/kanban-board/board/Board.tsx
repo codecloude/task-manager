@@ -4,9 +4,12 @@ import React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Column from "../column/Column";
 import { useDragDrop } from "../DragDropProvider";
-import { ColumnDropshadow, BoardContainerSC } from "./style.board";
+import {
+    DivColumnDropshadowSC,
+    DivBoardContainerSC,
+} from "./style.board";
 
-const Board: React.FC = () => {
+const Board = () => {
     const {
         handleDragEnd,
         handleDragStart,
@@ -27,7 +30,7 @@ const Board: React.FC = () => {
                 type="column"
             >
                 {(provided, snapshot) => (
-                    <BoardContainerSC
+                    <DivBoardContainerSC
                         id="task-board"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
@@ -40,13 +43,14 @@ const Board: React.FC = () => {
                             />
                         ))}
                         {provided.placeholder}
-                        {/* {snapshot.isDraggingOver && (
-                            <ColumnDropshadow
+                        {snapshot.isDraggingOver && (
+                            <DivColumnDropshadowSC
                                 marginLeft={colDropshadowProps.marginLeft}
                                 height={colDropshadowProps.height}
+                                place={"column"}
                             />
-                        )} */}
-                    </BoardContainerSC>
+                        )}
+                    </DivBoardContainerSC>
                 )}
             </Droppable>
         </DragDropContext>

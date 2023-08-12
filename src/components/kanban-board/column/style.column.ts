@@ -1,14 +1,19 @@
 "use client";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Dropshadow } from "../board/style.board";
+import { PaletteMode } from "@mui/material";
 
-export const ColumnContainerSC = styled.div<{ isDragging?: boolean }>`
+export const DivColumnContainerSC = styled.div<{
+    isDragging?: boolean;
+    mode: PaletteMode | undefined;
+}>`
     display: grid;
     grid-template-rows: max-content auto max-content;
-    row-gap: 10px;
+    /* row-gap: 10px; */
     width: 100%;
     max-width: 300px;
+    min-width: 300px;
     height: max-content;
     max-height: 100%;
     margin-right: 20px;
@@ -17,28 +22,22 @@ export const ColumnContainerSC = styled.div<{ isDragging?: boolean }>`
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     padding: 10px 10px;
     border-radius: 10px;
-    background-color: var(--theme-mode);
-    /* display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    max-width: 300px;
-    min-width: 300px;
-    height: calc(100vh - 280px);
-   
-    
-    position: relative;
-    ${({ isDragging }) => isDragging && "opacity: 0.6;"} */
+    background-color: var(--back-column);
+    ${({ isDragging }) => isDragging && "opacity: 0.6;"}
 `;
 
-export const DivRowContainerSC = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
+export const DivRowsWrapperSC = styled.div`
+    display: grid;
+    grid-auto-rows: max-content;
     width: 100%;
     height: 100%;
+    max-height: calc(100vh - 275px);
     min-height: 1px;
+    padding: 2px;
+    overflow-y: auto;
+    white-space: nowrap;
+    position: relative;
+
 `;
 
 export const DivLabelContainerSC = styled.div`
@@ -51,28 +50,10 @@ export const DivLabelColumnSC = styled.div`
     padding: 10px 8px;
     font-weight: 600;
     font-size: 18px;
-    transition: color .2s;
+    transition: color 0.2s;
     &:hover {
         color: var(--primary-blue);
     }
-    /* display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: auto;
-    color: #333;
-    background-color: transparent;
-    font-weight: 400;
-    padding: 0;
-    cursor: default;
-    &:hover {
-        color: #428bca;
-    } */
-`;
-
-export const Row = styled.div`
-    width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
 `;
 
 type RowDropshadowProps = {
@@ -82,7 +63,7 @@ type RowDropshadowProps = {
 export const RowDropshadow = styled(Dropshadow)<RowDropshadowProps>`
     margin-top: ${({ marginTop }) => `${marginTop}px`};
 `;
-export const DropshadowContainer = styled(DivRowContainerSC)`
+export const DivDropshadowRowSC = styled(DivRowsWrapperSC)`
     width: auto;
     position: absolute;
 `;

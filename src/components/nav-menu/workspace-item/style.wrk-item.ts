@@ -1,9 +1,8 @@
 "use client";
 
 import styled from "styled-components";
-import Link from "next/link";
 
-export const LinkWorkspaceItemSC = styled(Link)`
+export const DivWorkspaceItemSC = styled.div`
     text-decoration: none;
     width: 100%;
     height: 40px;
@@ -25,17 +24,5 @@ export const LinkWorkspaceItemSC = styled(Link)`
     &:active {
         background-color: rgba(0, 0, 0, 0.3);
     }
-`;
-
-export const DivWorkspaceIconSC = styled.div`
-    height: 30px;
-    width: 30px;
-    background-color: rgba(0, 0, 0, 0.15);
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: 600;
 `;
 

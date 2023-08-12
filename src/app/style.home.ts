@@ -10,7 +10,7 @@ export const DivHomeWrapSC = styled.div`
     margin: 0 auto;
     display: grid;
     grid-template-columns: 300px auto;
-    column-gap: 20px;
+    column-gap: 30px;
     position: relative;
 `;
 
@@ -20,7 +20,7 @@ export const DivHomeWorkspacesSC = styled.div`
     height: 3000px;
     margin-top: 30px;
     /* border: 1px solid black; */
-    background-color: rgba(0,0,0, 0.04);
+    /* background-color: rgba(0,0,0, 0.04); */
     border-radius: 5px;
 `;
 

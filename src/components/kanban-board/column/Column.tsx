@@ -12,15 +12,16 @@ import { ColumnType } from "@/lib/types";
 import { useDragDrop } from "../DragDropProvider";
 import { Row } from "../row";
 import {
-    ColumnContainerSC,
-    DropshadowContainer,
-    DivRowContainerSC,
+    DivColumnContainerSC,
+    DivDropshadowRowSC,
+    DivRowsWrapperSC,
     RowDropshadow,
     DivLabelColumnSC,
     DivLabelContainerSC,
 } from "./style.column";
 import { Button } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { useAppSelector } from "@/redux/store";
 
 type Props = {
     column: ColumnType;
@@ -29,21 +30,24 @@ type Props = {
 
 const styleButton = {
     justifyContent: "start",
-    ":hover": { borderRadius: "8px" },
+    ":hover": { borderRadius: "6px" },
     fontWeight: 400,
     textTransform: "none",
-    fontSize: "16px"
+    fontSize: "16px",
 };
 
-const Column: React.FC<Props> = ({ column, columnIndex }) => {
+const Column = (props: Props) => {
+    const { column, columnIndex } = props;
+    const mode = useAppSelector((state) => state.themeModeReducer);
     const { rowDropshadowProps } = useDragDrop();
 
     return (
         <Draggable draggableId={column.id} index={columnIndex}>
             {(provided: DraggableProvided) => (
-                <ColumnContainerSC
+                <DivColumnContainerSC
                     {...provided.draggableProps}
                     ref={provided.innerRef}
+                    mode={mode}
                 >
                     <DivLabelContainerSC>
                         <DivLabelColumnSC {...provided.dragHandleProps}>
@@ -55,7 +59,7 @@ const Column: React.FC<Props> = ({ column, columnIndex }) => {
                             prov: DroppableProvided,
                             snapshot: DroppableStateSnapshot
                         ) => (
-                            <DivRowContainerSC
+                            <DivRowsWrapperSC
                                 ref={prov.innerRef}
                                 {...prov.droppableProps}
                             >
@@ -67,17 +71,18 @@ const Column: React.FC<Props> = ({ column, columnIndex }) => {
                                     />
                                 ))}
                                 {prov.placeholder}
-                                <DropshadowContainer>
+                                <DivDropshadowRowSC>
                                     {snapshot.isDraggingOver && (
                                         <RowDropshadow
                                             marginTop={
                                                 rowDropshadowProps.marginTop
                                             }
                                             height={rowDropshadowProps.height}
+                                            place={"card"}
                                         />
                                     )}
-                                </DropshadowContainer>
-                            </DivRowContainerSC>
+                                </DivDropshadowRowSC>
+                            </DivRowsWrapperSC>
                         )}
                     </Droppable>
                     <Button
@@ -88,7 +93,7 @@ const Column: React.FC<Props> = ({ column, columnIndex }) => {
                     >
                         Добавить карточку
                     </Button>
-                </ColumnContainerSC>
+                </DivColumnContainerSC>
             )}
         </Draggable>
     );

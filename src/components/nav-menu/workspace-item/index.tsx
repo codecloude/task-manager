@@ -1,23 +1,24 @@
 "use client";
 
 import React, { useState } from "react";
-import { DivWorkspaceIconSC, LinkWorkspaceItemSC } from "./style.wrk-item";
+import { DivWorkspaceItemSC } from "./style.wrk-item";
 import { CreateWorkspacePropsType, WorkspaceType } from "@/lib/types";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { addWorkspaces } from "@/redux/features/workspaces-slice";
+import { DivWorkspaceIconSC } from "@/app/globals";
 
 export const WorkspaceItem = (props: WorkspaceType) => {
-    const { label, url } = props;
+    const { label } = props;
     return (
         <>
-            <LinkWorkspaceItemSC href={url ? url : "/"}>
-                <DivWorkspaceIconSC>
-                    {label && label[0].toLocaleUpperCase()}
+            <DivWorkspaceItemSC>
+                <DivWorkspaceIconSC size={30} fontSize={18}>
+                    {label && label[0]}
                 </DivWorkspaceIconSC>
                 <span>{label}</span>
-            </LinkWorkspaceItemSC>
+            </DivWorkspaceItemSC>
         </>
     );
 };
@@ -41,7 +42,7 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
         const newWorkspace: WorkspaceType = {
             id,
             label,
-            url: `/workspaces/dashboard/${id}`,
+            boards: []
         };
 
         const workspacesStr = localStorage.getItem("workspaces");

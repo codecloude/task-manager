@@ -1,7 +1,7 @@
 import { DragStart, DraggableLocation, DropResult } from "react-beautiful-dnd";
 
 export type DashboardItemType = {
-    params: {
+    params?: {
         id: string;
     };
 };
@@ -26,8 +26,7 @@ export type NavMenuPropsType = {
 export type WorkspaceType = {
     id?: number;
     label: string;
-    url: string | "/workspaces/dashboard/";
-    tasks?: TaskType[];
+    boards?: BoardType[];
 };
 
 export type TaskType = {
@@ -47,7 +46,7 @@ export type ColumnType = {
     tasks: TaskType[];
 };
 
-export type TaskBoardType = {
+export type BoardType = {
     id: string;
     label: string;
     columns: ColumnType[];
@@ -96,3 +95,5 @@ export type CSSMarginProperties =
     | "marginTop"
     | "marginLeft"
     | "marginRight"; // Добавьте другие свойства по мере необходимости
+
+export type PlaceBoardType = "column" | "card"
