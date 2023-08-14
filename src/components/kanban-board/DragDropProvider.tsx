@@ -74,7 +74,7 @@ const getStyle = (
     }, 0);
 
 const DragDropProvider: React.FC<{
-    data: ColumnType[];
+    data: ColumnType[] | [];
     children: React.ReactNode;
 }> = ({ children, data }) => {
     const [columns, setColumns] = useState<ColumnType[]>(data);

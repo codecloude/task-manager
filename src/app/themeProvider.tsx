@@ -35,10 +35,17 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
             MuiButton: {
                 styleOverrides: {
                     root: {
-                        fontSize: "13px",
+                        fontSize: "14px",
                         fontWeight: "500",
+                        boxShadow: "none",
                         "& .MuiSvgIcon-root": {
                             fontSize: "20px",
+                        },
+                        ":active": {
+                            boxShadow: "none",
+                        },
+                        ":hover": {
+                            boxShadow: "none",
                         },
                     },
                 },
@@ -57,6 +64,24 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
                 styleOverrides: {
                     root: {
                         fontSize: 30,
+                    },
+                },
+            },
+            MuiFab: {
+                styleOverrides: {
+                    root: {
+                        width: "40px",
+                        height: "40px",
+                        backgroundColor: "initial",
+                        boxShadow: "none",
+                        borderRadius: "5px",
+                        color: mode === "light" ? "#191919" : "#A1ADBB",
+                        ":hover": {
+                            backgroundColor: "rgba(25, 25, 25, 0.04)",
+                        },
+                        ":active": {
+                            boxShadow: "none",
+                        },
                     },
                 },
             },

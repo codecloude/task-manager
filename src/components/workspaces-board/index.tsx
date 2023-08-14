@@ -8,7 +8,9 @@ import { WorkspaceType } from "@/lib/types";
 import WorkspaceBoards from "./workspace-boards";
 
 const WorkspacesBoard = () => {
-    const workspaces: WorkspaceType[] = useAppSelector((state) => state.workspacesReducer);
+    const workspaces: WorkspaceType[] = useAppSelector(
+        (state) => state.workspacesReducer
+    );
 
     // useEffect(() => {
 
@@ -18,13 +20,15 @@ const WorkspacesBoard = () => {
         <>
             <DivWSContainerSC>
                 <H1MainSC>Ваши рабочие пространства</H1MainSC>
-                {workspaces &&
-                    workspaces.map((workspace: WorkspaceType) => (
-                        <WorkspaceBoards
-                            workspace={workspace}
-                            key={workspace.id}
-                        />
-                    ))}
+                <>
+                    {workspaces &&
+                        workspaces.map((workspace: WorkspaceType) => (
+                            <WorkspaceBoards
+                                workspace={workspace}
+                                key={workspace.id}
+                            />
+                        ))}
+                </>
             </DivWSContainerSC>
         </>
     );

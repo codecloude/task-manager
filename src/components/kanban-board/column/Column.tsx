@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Draggable,
     DraggableProvided,
@@ -19,9 +19,9 @@ import {
     DivLabelColumnSC,
     DivLabelContainerSC,
 } from "./style.column";
-import { Button } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useAppSelector } from "@/redux/store";
+import { Button } from "@mui/material";
 
 type Props = {
     column: ColumnType;
@@ -40,6 +40,20 @@ const Column = (props: Props) => {
     const { column, columnIndex } = props;
     const mode = useAppSelector((state) => state.themeModeReducer);
     const { rowDropshadowProps } = useDragDrop();
+
+    const style = {
+        position: "absolute" as "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "100%",
+        maxWidth: 600,
+        bgcolor: "background.paper",
+        // border: "2px solid #000",
+        boxShadow: 24,
+        p: 4,
+        borderRadius: "10px",
+    };
 
     return (
         <Draggable draggableId={column.id} index={columnIndex}>
@@ -90,6 +104,7 @@ const Column = (props: Props) => {
                         color="inherit"
                         sx={styleButton}
                         startIcon={<AddRoundedIcon />}
+                        // onClick={handleOpen}
                     >
                         Добавить карточку
                     </Button>

@@ -24,7 +24,7 @@ export type NavMenuPropsType = {
 };
 
 export type WorkspaceType = {
-    id?: number;
+    id?: string;
     label: string;
     boards?: BoardType[];
 };

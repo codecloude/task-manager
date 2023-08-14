@@ -8,6 +8,8 @@ export const GlobalStyle = createGlobalStyle<{ mode?: string }>`
             mode === "light" ? "#f9f9f9" : "#1D2125"};
         --text-color: ${({ mode }) =>
             mode === "light" ? "#191919" : "#A1ADBB"};
+        --text-color-rev: ${({ mode }) =>
+            mode === "light" ? "#fff" : "#191919"};
         --main-white: #f9f9f9;
         --light-blue: #7FC8F8;
         --primary-blue: #5AA9E6;

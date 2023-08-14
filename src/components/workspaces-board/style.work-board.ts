@@ -7,5 +7,5 @@ export const DivWSContainerSC = styled.div`
     height: max-content;
     display: grid;
     grid-auto-rows: max-content;
-    row-gap: 25px;
+    row-gap: 60px;
 `

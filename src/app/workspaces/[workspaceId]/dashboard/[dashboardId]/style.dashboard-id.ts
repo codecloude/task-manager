@@ -92,24 +92,3 @@ export const H1LabelBoardSC = styled.div`
     color: #fff;
     user-select: none;
 `;
-
-export const DivColumnAddSC = styled.div`
-    display: inline-block;
-    width: 300px;
-    height: 50px;
-    background-color: var(--back-column);
-    border-radius: var(--border-radius-column);
-    align-items: center;
-    padding: 10px;
-    display: flex;
-    column-gap: 10px;
-    cursor: pointer;
-    user-select: none;
-    transition: var(--transition);
-    &:hover {
-        background-color: var(--back-card);
-    }
-    &:active {
-        opacity: 0.8;
-    }
-`;
