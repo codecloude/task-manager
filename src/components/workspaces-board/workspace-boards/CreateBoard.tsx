@@ -1,49 +1,38 @@
 "use client";
 
 import React, { useState } from "react";
-import { DivWorkspaceItemSC } from "./style.wrk-item";
-import { CreateWorkspacePropsType, WorkspaceType } from "@/lib/types";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { addWorkspaces } from "@/redux/features/workspaces-slice";
-import { DivWorkspaceIconSC } from "@/app/globals";
 import { v4 } from "uuid";
+import { BoardType, WorkspaceType } from "@/lib/types";
 
-export const WorkspaceItem = (props: WorkspaceType) => {
-    const { label } = props;
-    return (
-        <>
-            <DivWorkspaceItemSC>
-                <DivWorkspaceIconSC size={30} fontSize={18}>
-                    {label && label[0]}
-                </DivWorkspaceIconSC>
-                <span>{label}</span>
-            </DivWorkspaceItemSC>
-        </>
-    );
+type Props = {
+    setOpen: (value: boolean) => void;
+    workspaceId: string | undefined;
 };
 
-export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
-    const { setOpen } = props;
+export const CreateBoard = (props: Props) => {
+    const { setOpen, workspaceId } = props;
     const [label, setLabel] = useState<string>("");
-    
+
     const dispatch = useDispatch<AppDispatch>();
 
     const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLabel(e.target.value);
     };
 
-    const addWorkspace = () => {
+    const addBoard = () => {
         if (!label || label === "") {
-            return alert("Введите название нового рабочего пространства");
+            return alert("Введите название доски");
         }
 
         const id: string = v4();
-        const newWorkspace: WorkspaceType = {
+        const newBoard: BoardType = {
             id,
             label,
-            boards: []
+            columns: [],
         };
 
         const workspacesStr = localStorage.getItem("workspaces");
@@ -53,12 +42,20 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
             workspaces = JSON.parse(workspacesStr);
         }
 
-        workspaces.push(newWorkspace);
+        const updateWorkspaces: WorkspaceType[] = workspaces.map(
+            (workspace: WorkspaceType) => {
+                if (workspace.id === workspaceId) {
+                    return {
+                        ...workspace,
+                        boards: [...(workspace.boards || []), newBoard],
+                    };
+                }
+                return workspace;
+            }
+        );
 
-        localStorage.setItem("workspaces", JSON.stringify(workspaces));
-
-        dispatch(addWorkspaces(workspaces));
-
+        localStorage.setItem("workspaces", JSON.stringify(updateWorkspaces));
+        dispatch(addWorkspaces(updateWorkspaces));
         setOpen(false);
     };
 
@@ -82,20 +79,17 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
         <>
             <Box component="form" sx={styleBox} noValidate autoComplete="off">
                 <Typography id="server-modal-title" variant="h6" component="h2">
-                    Создайте новое рабочее пространство
-                </Typography>
-                <Typography id="server-modal-description">
-                    Придумайте название для вашего рабочего пространства
+                    Создайте новую рабочую доску для ваше команды
                 </Typography>
                 <TextField
                     required
                     fullWidth
                     id="outlined-required"
-                    label="Название рабочего пространства"
+                    label="Название доски"
                     value={label}
                     onChange={onChangeInput}
                 />
-                <Button variant="contained" onClick={addWorkspace}>
+                <Button variant="contained" onClick={addBoard}>
                     Создать
                 </Button>
             </Box>

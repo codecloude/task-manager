@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Draggable,
     DraggableProvided,
@@ -12,37 +12,68 @@ import { ColumnType } from "@/lib/types";
 import { useDragDrop } from "../DragDropProvider";
 import { Row } from "../row";
 import {
-    Container,
-    DropshadowContainer,
-    RowContainer,
+    DivColumnContainerSC,
+    DivDropshadowRowSC,
+    DivRowsWrapperSC,
     RowDropshadow,
-    Title,
-    TitleContainer,
+    DivLabelColumnSC,
+    DivLabelContainerSC,
 } from "./style.column";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { useAppSelector } from "@/redux/store";
+import { Button } from "@mui/material";
 
 type Props = {
     column: ColumnType;
     columnIndex: number;
 };
 
-const Column: React.FC<Props> = ({ column, columnIndex }) => {
+const styleButton = {
+    justifyContent: "start",
+    ":hover": { borderRadius: "6px" },
+    fontWeight: 400,
+    textTransform: "none",
+    fontSize: "16px",
+};
+
+const Column = (props: Props) => {
+    const { column, columnIndex } = props;
+    const mode = useAppSelector((state) => state.themeModeReducer);
     const { rowDropshadowProps } = useDragDrop();
+
+    const style = {
+        position: "absolute" as "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "100%",
+        maxWidth: 600,
+        bgcolor: "background.paper",
+        // border: "2px solid #000",
+        boxShadow: 24,
+        p: 4,
+        borderRadius: "10px",
+    };
 
     return (
         <Draggable draggableId={column.id} index={columnIndex}>
             {(provided: DraggableProvided) => (
-                <Container {...provided.draggableProps} ref={provided.innerRef}>
-                    <TitleContainer>
-                        <Title {...provided.dragHandleProps}>
+                <DivColumnContainerSC
+                    {...provided.draggableProps}
+                    ref={provided.innerRef}
+                    mode={mode}
+                >
+                    <DivLabelContainerSC>
+                        <DivLabelColumnSC {...provided.dragHandleProps}>
                             {column.label}
-                        </Title>
-                    </TitleContainer>
+                        </DivLabelColumnSC>
+                    </DivLabelContainerSC>
                     <Droppable droppableId={column.id} type="task">
                         {(
                             prov: DroppableProvided,
                             snapshot: DroppableStateSnapshot
                         ) => (
-                            <RowContainer
+                            <DivRowsWrapperSC
                                 ref={prov.innerRef}
                                 {...prov.droppableProps}
                             >
@@ -54,20 +85,30 @@ const Column: React.FC<Props> = ({ column, columnIndex }) => {
                                     />
                                 ))}
                                 {prov.placeholder}
-                                <DropshadowContainer>
+                                <DivDropshadowRowSC>
                                     {snapshot.isDraggingOver && (
                                         <RowDropshadow
                                             marginTop={
                                                 rowDropshadowProps.marginTop
                                             }
                                             height={rowDropshadowProps.height}
+                                            place={"card"}
                                         />
                                     )}
-                                </DropshadowContainer>
-                            </RowContainer>
+                                </DivDropshadowRowSC>
+                            </DivRowsWrapperSC>
                         )}
                     </Droppable>
-                </Container>
+                    <Button
+                        variant="text"
+                        color="inherit"
+                        sx={styleButton}
+                        startIcon={<AddRoundedIcon />}
+                        // onClick={handleOpen}
+                    >
+                        Добавить карточку
+                    </Button>
+                </DivColumnContainerSC>
             )}
         </Draggable>
     );

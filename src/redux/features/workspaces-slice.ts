@@ -1,8 +1,7 @@
-import { WorkspaceType } from "@/lib/types";
+import { ColumnType, WorkspaceType } from "@/lib/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// const initialMode = localStorage.getItem("mode");
-const initialState: WorkspaceType[] = []
+const initialState: WorkspaceType[] = [];
 
 export const workspaces = createSlice({
     name: "workspaces",
@@ -11,8 +10,25 @@ export const workspaces = createSlice({
         addWorkspaces: (state, action: PayloadAction<WorkspaceType[]>) => {
             return action.payload;
         },
+        addColumn: (
+            state,
+            action: PayloadAction<{
+                workspaceId: string;
+                dashboardId: string;
+                column: ColumnType;
+            }>
+        ) => {
+            const { workspaceId, dashboardId, column } = action.payload;
+
+            const workspace = state.find((w) => w.id === workspaceId);
+            const board = workspace?.boards?.find((b) => b.id === dashboardId);
+
+            if (board) {
+                board.columns = [...board.columns, column];
+            }
+        },
     },
 });
 
-export const { addWorkspaces } = workspaces.actions;
+export const { addWorkspaces, addColumn } = workspaces.actions;
 export default workspaces.reducer;

@@ -91,7 +91,6 @@ const NavMenu = (props: NavMenuPropsType) => {
                                 <WorkspaceItem
                                     key={item.id}
                                     label={item.label}
-                                    url={item.url}
                                 />
                             ))
                         ) : (

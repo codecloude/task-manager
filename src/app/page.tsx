@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { DivHomeNavSC, DivHomeWorkspacesSC, DivHomeWrapSC } from "./style.home";
 import NavMenu from "@/components/nav-menu";
 import { NavMenuSectionType } from "@/lib/types";
+import WorkspacesBoard from "@/components/workspaces-board";
 
 const Home = () => {
     const [section, setSection] = useState<NavMenuSectionType>("dashboards");
@@ -11,9 +12,11 @@ const Home = () => {
         <main>
             <DivHomeWrapSC>
                 <DivHomeNavSC>
-                    <NavMenu section={section} setSection={setSection}/>
+                    <NavMenu section={section} setSection={setSection} />
                 </DivHomeNavSC>
-                <DivHomeWorkspacesSC></DivHomeWorkspacesSC>
+                <DivHomeWorkspacesSC>
+                    <WorkspacesBoard />
+                </DivHomeWorkspacesSC>
             </DivHomeWrapSC>
         </main>
     );
