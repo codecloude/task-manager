@@ -5,16 +5,13 @@ import { DivWSContainerSC } from "./style.work-board";
 import { H1MainSC } from "@/app/globals";
 import { useAppSelector } from "@/redux/store";
 import { WorkspaceType } from "@/lib/types";
-import WorkspaceBoards from "./workspace-boards";
+import WorkspaceBoards from "./dashboard-menu";
 
 const WorkspacesBoard = () => {
     const workspaces: WorkspaceType[] = useAppSelector(
         (state) => state.workspacesReducer
     );
 
-    // useEffect(() => {
-
-    // }, [])
 
     return (
         <>

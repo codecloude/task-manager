@@ -13,7 +13,6 @@ export type CustomMenuPropsType = {
 
 export type CustomMenuItemsType = {
     label: string;
-    url: string;
 };
 
 export type NavMenuSectionType = "dashboards" | "templates";

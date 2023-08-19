@@ -90,12 +90,15 @@ const ThemeProviderComp = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const storedMode = localStorage.getItem("mode");
-        const defaultMode =
-            storedMode === "light" || storedMode === "dark"
-                ? (storedMode as PaletteMode)
-                : "light";
-        localStorage.setItem("mode", defaultMode);
-        dispatch(switchTheme(defaultMode));
+        if (!mode) {
+            const defaultMode =
+                storedMode === "light" || storedMode === "dark"
+                    ? (storedMode as PaletteMode)
+                    : "light";
+            localStorage.setItem("mode", defaultMode);
+        } else {
+            dispatch(switchTheme(storedMode as PaletteMode));
+        }
     }, [mode]);
 
     return (

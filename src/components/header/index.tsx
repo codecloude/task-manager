@@ -12,9 +12,10 @@ import ProfileMenu from "../profile-menu";
 import { switchTheme } from "@/redux/features/theme-mode-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import CustomMenu from "../menu";
+
 import { CustomMenuPropsType } from "@/lib/types";
 import { addWorkspaces } from "@/redux/features/workspaces-slice";
+import CustomMenu from "../dropdown-menu";
 
 const Header = () => {
     const theme = useAppSelector((state) => state.themeModeReducer);
@@ -40,13 +41,7 @@ const Header = () => {
         if (workspacesString) {
             const workspacesToJson = JSON.parse(workspacesString);
             dispatch(addWorkspaces(workspacesToJson));
-        }
-
-        // if (workspaces) {
-        //     const workspacesString = JSON.stringify(workspaces);
-        //     localStorage.setItem("workspaces", workspacesString);
-        // } else {
-        // }
+        };
     }, []);
 
     return (

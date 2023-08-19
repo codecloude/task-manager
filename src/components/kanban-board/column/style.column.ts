@@ -18,8 +18,6 @@ export const DivColumnContainerSC = styled.div<{
     max-height: 100%;
     margin-right: 20px;
     flex: 1 0 auto;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     padding: 10px 10px;
     border-radius: 10px;
     background-color: var(--back-column);

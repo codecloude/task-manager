@@ -12,7 +12,7 @@ import {
 import { Backdrop, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Board, DragDropProvider } from "@/components/kanban-board";
-import { testData } from "./api";
+// import { testData } from "./api";
 import { useAppSelector } from "@/redux/store";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import { CreateColumn } from "@/components/kanban-board/column/create-column";
@@ -34,47 +34,37 @@ type Props = {
 
 const DashboardItem = (props: Props) => {
     const { params } = props;
-    const workspacesFromRedux = useAppSelector(
-        (state) => state.workspacesReducer
-    );
-    const [workspace, setWorkspace] = useState<WorkspaceType>();
+    const workspaces = useAppSelector((state) => state.workspacesReducer);
     const [board, setBoard] = useState<BoardType>();
     const [isBrowser, setIsBrowser] = useState<boolean>(false);
     const mode = useAppSelector((state) => state.themeModeReducer);
     const router = useRouter();
 
     useEffect(() => {
-        const currentWorkspace: WorkspaceType | undefined =
-            workspacesFromRedux.find(
+        const workspacesReduxString = JSON.stringify(workspaces);
+        const workspacesLSString = localStorage.getItem("workspaces");
+        if (workspacesReduxString !== workspacesLSString) {
+            localStorage.setItem("workspaces", JSON.stringify(workspaces));
+        }
+        if (typeof window !== "undefined") {
+            const currentWorkspace: WorkspaceType | undefined = workspaces.find(
                 (workspace: WorkspaceType) =>
                     workspace.id === params.workspaceId
             );
 
-        const currentBoard: BoardType | undefined =
-            currentWorkspace?.boards?.find(
-                (board: BoardType) => board.id === params.dashboardId
-            );
-        setWorkspace(currentWorkspace);
-        setBoard(currentBoard);
-        // if (typeof window !== "undefined") {
-        //     setIsBrowser(true);
-        // }
-    }, [workspacesFromRedux]);
+            const currentBoard: BoardType | undefined =
+                currentWorkspace?.boards?.find(
+                    (board: BoardType) => board.id === params.dashboardId
+                );
 
-    console.log("board", board);
-    
-    
-    useEffect(() => {
-        setTimeout(() => {
-            if (typeof window !== "undefined") {
-                setIsBrowser(true);
-            }
-        }, 2000);
-    }, []);
+            setBoard(currentBoard);
+            setIsBrowser(true);
+        }
+    }, [workspaces]);
 
     return (
         <>
-            <DivDashboardIdWrapSC mode={mode}>
+            <DivDashboardIdWrapSC mode={mode && mode}>
                 <DivDBTopMenuSC>
                     <DivGridDBTopMenuSC>
                         <Button
@@ -92,11 +82,9 @@ const DashboardItem = (props: Props) => {
                     </DivGridDBTopMenuSC>
                 </DivDBTopMenuSC>
                 <DivKanbanWrapSC>
-                    {isBrowser && board !== undefined ? (
+                    {isBrowser && board?.columns ? (
                         <>
-                            <DragDropProvider
-                                data={board && board?.columns}
-                            >
+                            <DragDropProvider data={board.columns}>
                                 <Board />
                             </DragDropProvider>
                         </>

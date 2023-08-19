@@ -39,8 +39,6 @@ const WorkspaceBoards = (props: Props) => {
         borderRadius: "10px",
     };
 
-    const createDashboard = () => {};
-
     const toWorkspaceUrl = `/workspaces/${id}`
 
     return (

@@ -10,7 +10,7 @@ import {
     RowDropshadow,
     RowDropshadowProps,
 } from "@/lib/types";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DragStart, DraggableId, DropResult } from "react-beautiful-dnd";
 import { v4 } from "uuid";
 
@@ -74,7 +74,7 @@ const getStyle = (
     }, 0);
 
 const DragDropProvider: React.FC<{
-    data: ColumnType[] | [];
+    data: ColumnType[];
     children: React.ReactNode;
 }> = ({ children, data }) => {
     const [columns, setColumns] = useState<ColumnType[]>(data);
@@ -320,6 +320,12 @@ const DragDropProvider: React.FC<{
             ];
         });
     };
+
+    // console.log("data from d&d prov", data);
+
+    useEffect(() => {
+        setColumns(data);
+    }, [data]);
 
     return (
         <DragDropContext.Provider

@@ -50,10 +50,10 @@ const CustomMenu = (props: CustomMenuPropsType) => {
                         "aria-labelledby": "basic-button",
                     }}
                 >
-                    {items.map(({ label, url, id }: WorkspaceType) => (
+                    {items.map(({ label, id }: WorkspaceType) => (
                         <MenuItem
                             key={id}
-                            onClick={() => handleToWorkspace(url)}
+                            // onClick={() => handleToWorkspace(url)}
                         >
                             {label}
                         </MenuItem>

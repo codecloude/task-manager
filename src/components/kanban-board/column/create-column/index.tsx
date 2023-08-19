@@ -34,7 +34,7 @@ export const CreateColumn = (props: Props) => {
         setLabel(e.target.value);
     };
 
-    const createColumn = (
+    const createColumn = async (
         workspaceId: string,
         dashboardId: string,
         label: string
@@ -47,16 +47,15 @@ export const CreateColumn = (props: Props) => {
             if (workspaceId === "" && dashboardId === "") {
                 return;
             }
-            
-            const id = v4();
 
+            const id = v4();
             const newColumn: ColumnType = {
                 id,
                 label,
                 tasks: [],
             };
 
-            const updateWorkspaces: WorkspaceType[] = workspaces.map(
+            const updatedWorkspaces: WorkspaceType[] = workspaces.map(
                 (workspace: WorkspaceType) => {
                     if (workspace.id === workspaceId) {
                         workspace?.boards?.map((board: BoardType) => {
@@ -76,13 +75,16 @@ export const CreateColumn = (props: Props) => {
                 }
             );
 
-            localStorage.setItem(
-                "workspaces",
-                JSON.stringify(updateWorkspaces)
-            );
+            dispatch(addWorkspaces(updatedWorkspaces));
             dispatch(
                 addColumn({ workspaceId, dashboardId, column: newColumn })
             );
+
+            // localStorage.setItem(
+            //     "workspaces",
+            //     JSON.stringify(updatedWorkspaces)
+            // );
+            
             setOpen(false);
         } catch (error: unknown) {
             if (error instanceof Error) {
