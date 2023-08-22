@@ -10,8 +10,10 @@ import {
     RowDropshadow,
     RowDropshadowProps,
 } from "@/lib/types";
+import { updateColumns } from "@/redux/features/workspaces-slice";
 import React, { useContext, useEffect, useState } from "react";
 import { DragStart, DraggableId, DropResult } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 import { v4 } from "uuid";
 
 const DragDropContext = React.createContext<DragDropContextProps | undefined>(
@@ -73,10 +75,18 @@ const getStyle = (
         );
     }, 0);
 
-const DragDropProvider: React.FC<{
+type Props = {
     data: ColumnType[];
     children: React.ReactNode;
-}> = ({ children, data }) => {
+    params: {
+        workspaceId: string;
+        dashboardId: string;
+    };
+};
+
+const DragDropProvider = (props: Props) => {
+    const { data, children, params } = props;
+    const { workspaceId, dashboardId } = params;
     const [columns, setColumns] = useState<ColumnType[]>(data);
     const [colDropshadowProps, setColDropshadowProps] = useState<ColDropshadow>(
         {
@@ -90,6 +100,7 @@ const DragDropProvider: React.FC<{
             height: 0,
         }
     );
+    const dispatch = useDispatch();
 
     // handling movement of row in the same column
     // [[],[]],[]
@@ -159,6 +170,9 @@ const DragDropProvider: React.FC<{
             const [removed] = updated.splice(source.index, 1);
             // insert source column at new destination
             updated.splice(destination.index, 0, removed);
+            dispatch(
+                updateColumns({ workspaceId, dashboardId, columns: updated })
+            );
             return updated;
         });
 

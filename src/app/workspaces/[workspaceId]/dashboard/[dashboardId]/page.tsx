@@ -84,7 +84,7 @@ const DashboardItem = (props: Props) => {
                 <DivKanbanWrapSC>
                     {isBrowser && board?.columns ? (
                         <>
-                            <DragDropProvider data={board.columns}>
+                            <DragDropProvider data={board.columns} params={params}>
                                 <Board />
                             </DragDropProvider>
                         </>
