@@ -30,7 +30,7 @@ export type WorkspaceType = {
 
 export type TaskType = {
     id: string;
-    content: string;
+    task: string;
     created: string;
     date?: string;
 };
@@ -77,7 +77,7 @@ export type ColDropshadow = { marginLeft: number; height: number };
 export type DragDropContextProps = {
     onSubmit: (newRow: string, colIndex: number) => void;
     handleDuplicateTask: (rowIndex: number, colIndex: number) => void;
-    handleNewColumn: (newName: string) => void;
+    handleNewColumn: (label: string) => void;
     handleRemoveTask: (rowIndex: number, colIndex: number) => void;
     handleDeleteColumn: (colIndex: number) => void;
     handleDragEnd: (result: DropResult) => void;
@@ -87,6 +87,7 @@ export type DragDropContextProps = {
     colDropshadowProps: ColDropshadow;
     columns: ColumnType[];
     setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
+    handleNewTask: (label: string, colIndex: number) => void;
 };
 
 export type CSSMarginProperties =

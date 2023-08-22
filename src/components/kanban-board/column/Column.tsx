@@ -22,18 +22,11 @@ import {
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useAppSelector } from "@/redux/store";
 import { Button } from "@mui/material";
+import { CreateRow } from "./create-row";
 
 type Props = {
     column: ColumnType;
     columnIndex: number;
-};
-
-const styleButton = {
-    justifyContent: "start",
-    ":hover": { borderRadius: "6px" },
-    fontWeight: 400,
-    textTransform: "none",
-    fontSize: "16px",
 };
 
 const Column = (props: Props) => {
@@ -41,19 +34,13 @@ const Column = (props: Props) => {
     const mode = useAppSelector((state) => state.themeModeReducer);
     const { rowDropshadowProps } = useDragDrop();
 
-    const style = {
-        position: "absolute" as "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "100%",
-        maxWidth: 600,
-        bgcolor: "background.paper",
-        // border: "2px solid #000",
-        boxShadow: 24,
-        p: 4,
-        borderRadius: "10px",
-    };
+    // const styleButton = {
+    //     justifyContent: "start",
+    //     ":hover": { borderRadius: "6px" },
+    //     fontWeight: 400,
+    //     textTransform: "none",
+    //     fontSize: "16px",
+    // };
 
     return (
         <Draggable draggableId={column.id} index={columnIndex}>
@@ -99,15 +86,7 @@ const Column = (props: Props) => {
                             </DivRowsWrapperSC>
                         )}
                     </Droppable>
-                    <Button
-                        variant="text"
-                        color="inherit"
-                        sx={styleButton}
-                        startIcon={<AddRoundedIcon />}
-                        // onClick={handleOpen}
-                    >
-                        Добавить карточку
-                    </Button>
+                    <CreateRow columnIndex={columnIndex} />
                 </DivColumnContainerSC>
             )}
         </Draggable>

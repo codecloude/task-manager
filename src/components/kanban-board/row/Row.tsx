@@ -25,7 +25,7 @@ const Row = (props: Props) => {
                         ref={provided.innerRef}
                         mode={mode}
                     >
-                        {task.content}
+                        {task.task}
                     </DivRowContainerSC>
                 )}
             </Draggable>

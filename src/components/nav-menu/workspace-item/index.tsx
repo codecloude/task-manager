@@ -94,6 +94,13 @@ export const CreateWorkspace = (props: CreateWorkspacePropsType) => {
                     label="Название рабочего пространства"
                     value={label}
                     onChange={onChangeInput}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            addWorkspace();
+                            setOpen(false);
+                        }
+                    }}
                 />
                 <Button variant="contained" onClick={addWorkspace}>
                     Создать

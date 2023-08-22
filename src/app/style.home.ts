@@ -17,7 +17,9 @@ export const DivHomeWrapSC = styled.div`
 
 export const DivHomeWorkspacesSC = styled.div`
     width: 100%;
-    height: 3000px;
+    height: max-content;
+    padding-bottom: 10px;
+    box-sizing: border-box;
     margin-top: 30px;
     /* border: 1px solid black; */
     /* background-color: rgba(0,0,0, 0.04); */

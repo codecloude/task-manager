@@ -84,7 +84,7 @@ export const CreateColumn = (props: Props) => {
             //     "workspaces",
             //     JSON.stringify(updatedWorkspaces)
             // );
-            
+
             setOpen(false);
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -106,6 +106,15 @@ export const CreateColumn = (props: Props) => {
                             label="Заголовок списка"
                             size="small"
                             onChange={onChangeInput}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    createColumn(
+                                        workspaceId,
+                                        dashboardId,
+                                        label
+                                    );
+                                }
+                            }}
                         />
                         <DivButtonGroupeSC>
                             <Button

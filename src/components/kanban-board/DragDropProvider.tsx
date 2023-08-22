@@ -105,42 +105,72 @@ const DragDropProvider = (props: Props) => {
     // handling movement of row in the same column
     // [[],[]],[]
     const moveRowSameColumn: DragDropProps = (source, destination) => {
-        // moving tasks in same column
         setColumns((prev) => {
             const updated = [...prev];
-            // isolate the row of the column we want to adjust
-            const [{ tasks }] = updated.filter(
-                ({ id }) => id === source.droppableId
+
+            const sourceColumnIndex = updated.findIndex(
+                (column) => column.id === source.droppableId
             );
-            // remove the source item
-            const [removed] = tasks.splice(source.index, 1);
-            // insert the source item at the new colIndex
-            tasks.splice(destination.index, 0, removed);
+
+            if (sourceColumnIndex === -1) {
+                return prev;
+            }
+
+            const sourceColumn = updated[sourceColumnIndex];
+            const sourceRow = [...sourceColumn.tasks];
+
+            const [removed] = sourceRow.splice(source.index, 1);
+            sourceRow.splice(destination.index, 0, removed);
+
+            updated[sourceColumnIndex] = {
+                ...sourceColumn,
+                tasks: sourceRow,
+            };
+
+            dispatch(
+                updateColumns({ workspaceId, dashboardId, columns: updated })
+            );
+
             return updated;
         });
     };
 
-    // handling movement of row between columns
     const moveRowDifferentColumn: DragDropProps = (source, destination) => {
-        // moving tasks between columns
         setColumns((prev) => {
-            // filter out which column is the source and which is the destination
             const updated = [...prev];
-            const [sourceColumn] = updated.filter(
-                ({ id }) => id === source.droppableId
+            const sourceColumnIndex = updated.findIndex(
+                (column) => column.id === source.droppableId
             );
-            const [destinationColumn] = updated.filter(
-                ({ id }) => id === destination.droppableId
+            const destinationColumnIndex = updated.findIndex(
+                (column) => column.id === destination.droppableId
             );
 
-            // extract the tasks from the columnn
-            const sourceRow = sourceColumn.tasks;
-            const destinationRow = destinationColumn.tasks;
+            if (sourceColumnIndex === -1 || destinationColumnIndex === -1) {
+                return prev;
+            }
 
-            // remove the source item
+            const sourceColumn = updated[sourceColumnIndex];
+            const destinationColumn = updated[destinationColumnIndex];
+
+            const sourceRow = [...sourceColumn.tasks];
+            const destinationRow = [...destinationColumn.tasks];
+
             const [removed] = sourceRow.splice(source.index, 1);
-            // insert the source item at the new colIndex
             destinationRow.splice(destination.index, 0, removed);
+
+            updated[sourceColumnIndex] = {
+                ...sourceColumn,
+                tasks: sourceRow,
+            };
+
+            updated[destinationColumnIndex] = {
+                ...destinationColumn,
+                tasks: destinationRow,
+            };
+
+            dispatch(
+                updateColumns({ workspaceId, dashboardId, columns: updated })
+            );
 
             return updated;
         });
@@ -287,16 +317,26 @@ const DragDropProvider = (props: Props) => {
         });
 
     const onSubmit = (newRow: string, colIndex: number) => {
-        const currentDate = new Date().toISOString(); // Возвращает текущую дату и время в формате ISO string
+        const currentDate = new Date().toISOString();
 
         setColumns((prev) => {
             const updated = [...prev];
-            updated[colIndex].tasks.push({
-                content: newRow,
+            const newTask = {
+                task: newRow,
                 id: v4(),
                 created: currentDate,
-                // Если вы хотите добавить поле date, добавьте его здесь
-            });
+            };
+            updated[colIndex] = {
+                ...updated[colIndex],
+                tasks: [...updated[colIndex].tasks, newTask],
+            };
+            dispatch(
+                updateColumns({
+                    workspaceId,
+                    dashboardId,
+                    columns: updated,
+                })
+            );
             return updated;
         });
     };
@@ -313,7 +353,7 @@ const DragDropProvider = (props: Props) => {
         setColumns((prev) => {
             const updated = [...prev];
             updated[colIndex].tasks.push({
-                content: updated[colIndex].tasks[rowIndex].content,
+                task: updated[colIndex].tasks[rowIndex].task,
                 id: v4(),
                 created: updated[colIndex].tasks[rowIndex].created,
             });
@@ -321,18 +361,24 @@ const DragDropProvider = (props: Props) => {
         });
     };
 
-    const handleNewColumn = (newName: string) => {
+    const handleNewColumn = (label: string) => {
         setColumns((prev) => {
             const updated = [...prev];
             return [
                 ...updated,
                 {
                     id: v4(),
-                    label: newName,
+                    label: label,
                     tasks: [],
                 },
             ];
         });
+    };
+
+    const handleNewTask = (label: string, colIndex: number) => {
+        if (label) {
+            onSubmit(label, colIndex); // Вызываем функцию onSubmit для добавления задачи
+        }
     };
 
     // console.log("data from d&d prov", data);
@@ -356,6 +402,7 @@ const DragDropProvider = (props: Props) => {
                 colDropshadowProps,
                 columns,
                 setColumns,
+                handleNewTask,
             }}
         >
             {children}
